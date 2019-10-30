@@ -11,7 +11,7 @@
       <ul class="right hide-on-small-and-down">
         <li>
           <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
-            USER NAME
+            {{name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -42,9 +42,14 @@ export default {
     dropdown: null
   }),
   methods: {
-    logout() {
-      console.log("Logout");
+    async logout() {
+      await this.$store.dispatch("logout");
       this.$router.push("/login?message=logout");
+    }
+  },
+  computed: {
+    name() {
+      return this.$store.getters.info.name;
     }
   },
   mounted() {
@@ -63,3 +68,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.dropdown-content li > a > i {
+  margin: 0 10px 0 0;
+}
+.dropdown-content li > a,
+.dropdown-content li > span {
+  padding: 12px 13px;
+  font-size: 14px;
+}
+</style>
