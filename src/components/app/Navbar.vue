@@ -18,13 +18,15 @@
           <ul id="dropdown" class="dropdown-content">
             <li>
               <router-link to="/profile" class="black-text">
-                <i class="material-icons">account_circle</i>Профиль
+                <i class="material-icons">account_circle</i>
+                {{'ProfileTitle'|localize}}
               </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
               <a href="#" class="black-text" @click.prevent="logout">
-                <i class="material-icons">assignment_return</i>Выйти
+                <i class="material-icons">assignment_return</i>
+                {{'Exit'|localize}}
               </a>
             </li>
           </ul>
@@ -33,6 +35,7 @@
     </div>
   </nav>
 </template>
+
 
 <script>
 export default {
@@ -43,39 +46,28 @@ export default {
   }),
   methods: {
     async logout() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/login?message=logout");
+      await this.$store.dispatch('logout')
+      this.$router.push('/login?message=logout')
     }
   },
   computed: {
     name() {
-      return this.$store.getters.info.name;
+      return this.$store.getters.info.name
     }
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = new Date();
-    }, 1000);
+      this.date = new Date()
+    }, 1000)
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: true
-    });
+      constrainWidth: false
+    })
   },
   beforeDestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {
-      this.dropdown.destroy();
+      this.dropdown.destroy()
     }
   }
-};
+}
 </script>
-
-<style lang="scss" scoped>
-.dropdown-content li > a > i {
-  margin: 0 10px 0 0;
-}
-.dropdown-content li > a,
-.dropdown-content li > span {
-  padding: 12px 13px;
-  font-size: 14px;
-}
-</style>
